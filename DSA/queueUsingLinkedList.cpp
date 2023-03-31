@@ -5,73 +5,78 @@
 #include<iostream>
 using namespace std;
 
-// Node class for Linked List implementation
-class Node {
-public:
+#include <iostream>
+
+using namespace std;
+
+// node structure for the linked list
+struct Node {
     int data;
     Node* next;
 };
 
-// Queue class
-class Queue {
-private:
-    Node* front;
-    Node* rear;
-public:
-    Queue() {
-        front = NULL;
-        rear = NULL;
-    }
-
-    // Insert operation
-    void insert(int value) {
-        Node* newNode = new Node();
-        newNode->data = value;
-        newNode->next = NULL;
-
-        if (front == NULL) {
-            front = newNode;
-            rear = newNode;
+// circular queue class
+class CircularQueue {
+    private:
+        Node* rear; // pointer to the rear node of the queue
+    public:
+        CircularQueue() {
+            rear = NULL;
         }
-        else {
-            rear->next = newNode;
-            rear = newNode;
-        }
-        cout << "Inserted " << value << " in the queue." << endl;
-    }
 
-    // Delete operation
-    void remove() {
-        if (front == NULL) {
-            cout << "Queue is empty." << endl;
+        // function to insert an element at the end of the queue
+        void insert(int value) {
+            Node* temp = new Node;
+            temp->data = value;
+            if (rear == NULL) {
+                rear = temp;
+                rear->next = rear;
+            }
+            else {
+                temp->next = rear->next;
+                rear->next = temp;
+                rear = temp;
+            }
+            cout << "Element " << value << " inserted successfully." << endl;
         }
-        else {
-            Node* temp = front;
-            cout << "Removed " << front->data << " from the queue." << endl;
-            front = front->next;
+
+        // function to remove the element from the front of the queue
+        void remove() {
+            if (rear == NULL) {
+                cout << "Queue is empty." << endl;
+                return;
+            }
+            Node* temp = rear->next;
+            if (rear->next == rear) {//1 element
+                rear = NULL;
+            }
+            else {
+                rear->next = rear->next->next;
+            }
+            cout << "Element " << temp->data << " removed successfully." << endl;
             delete temp;
         }
-    }
 
-    // Display operation
-    void display() {
-        if (front == NULL) {
-            cout << "Queue is empty." << endl;
-        }
-        else {
-            Node* temp = front;
-            while (temp != NULL) {
+        // function to display the elements in the queue
+        void display() {
+            if (rear == NULL) {
+                cout << "Queue is empty." << endl;
+                return;
+            }
+            Node* temp = rear->next;
+            cout << "Elements in the queue: ";
+            while (temp != rear) {
                 cout << temp->data << " ";
                 temp = temp->next;
             }
-            cout << endl;
+            cout << temp->data << endl;
         }
-    }
 };
+
 
 // Main function
 int main() {
-    Queue q;
+    CircularQueue q;
     int choice, value;
 
     do {
