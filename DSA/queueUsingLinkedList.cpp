@@ -2,9 +2,6 @@
 // INSERT - Inserts an element at the end of the queue.
 // DELETE - Removes the element from the front of the queue.
 // DISPLAY - Displays the elements in the queue.
-#include<iostream>
-using namespace std;
-
 #include <iostream>
 
 using namespace std;
@@ -79,11 +76,12 @@ int main() {
     CircularQueue q;
     int choice, value;
 
-    do {
-        cout << "1. Insert element" << endl;
+     cout << "1. Insert element" << endl;
         cout << "2. Delete element" << endl;
         cout << "3. Display queue" << endl;
         cout << "4. Exit" << endl;
+
+    do {
         cout << "Enter your choice: ";
         cin >> choice;
 
